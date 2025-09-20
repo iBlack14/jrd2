@@ -63,6 +63,7 @@ export default function Login() {
                 <li>Jueces (personas jurídicas): usuario <code>juez</code>, contraseña <code>juez1</code>.</li>
                 <li>Cliente: usuario <code>prueba</code>, contraseña <code>prueba</code>.</li>
               </ul>
+              <p className="mt-3">¿Eres cliente nuevo? <Link to="/register" className="text-primary underline-offset-2 hover:underline">Crea tu cuenta</Link></p>
             </div>
           </form>
         </CardContent>

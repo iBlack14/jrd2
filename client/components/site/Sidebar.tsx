@@ -1,13 +1,13 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, BarChart2, Calendar, MessageSquare, FileText, Bell, Search, Clock, Users, Settings, UserCircle, LogOut } from "lucide-react";
+import { Home, BarChart2, FormInput, MessageSquare, FileText, Bell, Search, Clock, Users, Settings, UserCircle, LogOut, ShieldCheck } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/contexts/AuthContext";
 
 const baseItems = [
   { to: "/dashboard", icon: Home, label: "Inicio", end: true },
   { to: "/dashboard/analitica", icon: BarChart2, label: "Analítica" },
-  { to: "/dashboard/audiencias", icon: Calendar, label: "Audiencias" },
+  { to: "/dashboard/audiencias", icon: FormInput, label: "Build Form" },
   { to: "/dashboard/mensajes", icon: MessageSquare, label: "Mensajes" },
   { to: "/dashboard/casos", icon: FileText, label: "Casos" },
   { to: "/dashboard/alertas", icon: Bell, label: "Alertas" },
@@ -26,14 +26,26 @@ export default function Sidebar() {
     navigate("/login", { replace: true });
   };
 
-  const items = user?.role === "admin"
-    ? [
-        ...baseItems.slice(0, 1),
-        { to: "/dashboard/usuarios", icon: Users, label: "Usuarios" },
-        { to: "/dashboard/permisos", icon: ShieldCheck, label: "Permisos" },
-        ...baseItems.slice(1),
-      ]
-    : baseItems;
+  let items = baseItems;
+
+  if (user?.role === "admin") {
+    items = [
+      ...items.slice(0, 1),
+      { to: "/dashboard/usuarios", icon: Users, label: "Usuarios" },
+      { to: "/dashboard/permisos", icon: ShieldCheck, label: "Permisos" },
+      ...items.slice(1),
+    ];
+  }
+
+  if (user?.role !== "juridica") {
+    items = items.filter((it) => it.to !== "/dashboard/audiencias");
+  }
+
+  if (user?.role === "cliente") {
+    items = items
+      .map((it) => (it.to === "/dashboard/casos" ? { ...it, label: "Solicitud", icon: FormInput } : it))
+      .filter((it) => it.to !== "/dashboard/tiempos" && it.to !== "/dashboard/clientes");
+  }
 
   return (
     <aside className="sticky top-0 h-screen w-16 shrink-0 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -53,7 +65,7 @@ export default function Sidebar() {
                       )
                     }
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-5 w-5 text-black" />
                   </NavLink>
                 </TooltipTrigger>
                 <TooltipContent side="right">{label}</TooltipContent>
@@ -66,7 +78,7 @@ export default function Sidebar() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <NavLink to="/dashboard/ajustes" className={({ isActive }) => cn("inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground/60 hover:bg-accent hover:text-foreground", isActive && "bg-primary text-primary-foreground hover:bg-primary") }>
-                  <Settings className="h-5 w-5" />
+                  <Settings className="h-5 w-5 text-black" />
                 </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Ajustes</TooltipContent>
@@ -74,13 +86,13 @@ export default function Sidebar() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <button onClick={handleLogout} className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground/60 hover:bg-accent hover:text-foreground">
-                  <LogOut className="h-5 w-5" />
+                  <LogOut className="h-5 w-5 text-black" />
                 </button>
               </TooltipTrigger>
               <TooltipContent side="right">Salir</TooltipContent>
             </Tooltip>
             <div className="mb-1 inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border bg-muted text-muted-foreground">
-              <UserCircle className="h-5 w-5" />
+              <UserCircle className="h-5 w-5 text-black" />
             </div>
           </TooltipProvider>
         </div>

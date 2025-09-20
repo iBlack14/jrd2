@@ -1,4 +1,4 @@
-import { FileText, Users, Calendar, ShieldCheck, Briefcase, MessageSquare, BarChart2 } from "lucide-react";
+import { FileText, Users, Calendar, ShieldCheck, Briefcase, MessageSquare, BarChart2, FormInput } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   ChartContainer,
@@ -46,14 +46,14 @@ export default function DashboardHome() {
     <Section title="Gestión del estudio">
       <Card title="Casos" description="Crea, asigna y controla expedientes y actuaciones." icon={<FileText className="h-5 w-5" />} />
       <Card title="Clientes" description="Personas y empresas con historial y documentación." icon={<Users className="h-5 w-5" />} />
-      <Card title="Audiencias" description="Calendario de audiencias, plazos y recordatorios." icon={<Calendar className="h-5 w-5" />} />
+      <Card title="Build Form" description="Crea formularios y plantillas personalizadas." icon={<FormInput className="h-5 w-5" />} />
       <Card title="Cumplimiento" description="Permisos, roles y trazabilidad completa." icon={<ShieldCheck className="h-5 w-5" />} />
     </Section>
   );
 
   const cliente = (
     <Section title="Mi escritorio">
-      <Card title="Mis casos" description="Estado actual, próximas fechas y responsables." icon={<Briefcase className="h-5 w-5" />} />
+      <Card title="Solicitud" description="Completa y envía formularios a tu juez." icon={<FormInput className="h-5 w-5" />} />
       <Card title="Documentos" description="Sube y descarga documentación compartida." icon={<FileText className="h-5 w-5" />} />
       <Card title="Mensajes" description="Comunícate con tu equipo legal." icon={<MessageSquare className="h-5 w-5" />} />
       <Card title="Calendario" description="Audiencias y recordatorios personales." icon={<Calendar className="h-5 w-5" />} />
@@ -101,9 +101,9 @@ export default function DashboardHome() {
               <Area type="monotone" dataKey="casos" stroke="var(--color-casos)" fill="var(--color-casos)" fillOpacity={0.15} />
               <Area type="monotone" dataKey="clientes" stroke="var(--color-clientes)" fill="var(--color-clientes)" fillOpacity={0.12} />
               <Area type="monotone" dataKey="audiencias" stroke="var(--color-audiencias)" fill="var(--color-audiencias)" fillOpacity={0.12} />
+              <ChartLegend verticalAlign="bottom" content={<ChartLegendContent className="justify-start" />} />
             </AreaChart>
           </ChartContainer>
-          <ChartLegendContent className="justify-start" />
         </div>
       </section>
       <Section title="Acciones rápidas">

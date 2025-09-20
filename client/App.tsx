@@ -10,9 +10,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 // import Panel from "./pages/Panel";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import DashboardLayout from "./pages/dashboard/Layout";
 import DashboardHome from "./pages/dashboard/Home";
 import { Placeholder } from "./pages/dashboard/Placeholders";
+import UsersPage from "./pages/dashboard/Users";
+import FormBuilder from "./pages/dashboard/FormBuilder";
+import RequestsPage from "./pages/dashboard/Requests";
+import MessagesPage from "./pages/dashboard/Messages";
 import SiteHeader from "@/components/site/Header";
 import SiteFooter from "@/components/site/Footer";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -33,6 +38,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Navigate to="/login" replace />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route
                   path="/dashboard"
                   element={
@@ -42,16 +48,16 @@ const App = () => (
                   }
                 >
                   <Route index element={<DashboardHome />} />
-                  <Route path="casos" element={<Placeholder title="Casos" />} />
+                  <Route path="casos" element={<RequestsPage />} />
                   <Route path="clientes" element={<Placeholder title="Clientes" />} />
-                  <Route path="audiencias" element={<Placeholder title="Audiencias" />} />
+                  <Route path="audiencias" element={<FormBuilder />} />
                   <Route path="analitica" element={<Placeholder title="Analítica" />} />
-                  <Route path="mensajes" element={<Placeholder title="Mensajes" />} />
+                  <Route path="mensajes" element={<MessagesPage />} />
                   <Route path="alertas" element={<Placeholder title="Alertas" />} />
                   <Route path="buscar" element={<Placeholder title="Buscar" />} />
                   <Route path="tiempos" element={<Placeholder title="Tiempos" />} />
                   <Route path="clientes" element={<Placeholder title="Clientes" />} />
-                  <Route path="usuarios" element={<Placeholder title="Usuarios" />} />
+                  <Route path="usuarios" element={<UsersPage />} />
                   <Route path="permisos" element={<Placeholder title="Permisos" />} />
                   <Route path="ajustes" element={<Placeholder title="Ajustes" />} />
                 </Route>
