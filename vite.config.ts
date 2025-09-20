@@ -6,7 +6,7 @@ import { createServer } from "./server";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "localhost",   // más simple que "::"
-    port: 8080,
+    port: 5173,
     fs: {
       allow: [
         path.resolve(__dirname),       // toda la raíz del proyecto jrd
